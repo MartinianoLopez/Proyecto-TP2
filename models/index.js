@@ -1,8 +1,13 @@
 import Role from "./Role.js";
 import User from "./User.js";
-
-Role.hasMany(User)
-User.belongsTo(Role)
+import Resenas from "./Resenas.js";
 
 
-export  { Role, User };
+Role.hasMany(User, { foreignKey: "RoleId" });
+User.belongsTo(Role, { foreignKey: "RoleId" });
+
+// Un usuario tiene muchas reseñas, y una reseña pertenece a un usuario
+User.hasMany(Resenas, { foreignKey: "userId" });
+Resenas.belongsTo(User, { foreignKey: "userId" });
+
+export { Role, User, Resenas };
