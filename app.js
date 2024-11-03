@@ -6,6 +6,7 @@ import { SERVER_PORT } from "./config/config.js";
 import roleSeed from "./seed/roleSeed.js";
 import "./models/index.js";
 
+
 const app = express();
 
 app.use(express.json());
