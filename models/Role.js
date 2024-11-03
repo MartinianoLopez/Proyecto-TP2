@@ -8,7 +8,16 @@ Role.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue:"user"
+      defaultValue: "user",
+      validate: {
+        isIn: {
+          args: [["user", "admin"]],
+          msg: "El rol debe ser 'user' o 'admin'",
+        },
+        notEmpty: {
+          msg: "El rol no puede estar vacío",
+        },
+      },
     },
   },
   {
