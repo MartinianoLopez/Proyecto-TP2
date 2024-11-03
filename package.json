@@ -1,22 +1,23 @@
 {
-  "name": "proyecto-tp2",
+  "name": "jueves",
   "version": "1.0.0",
+  "description": "",
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node .",
-    "dev": "node --watch .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --env-file .env .",
+    "dev": "node --env-file .env.dev --watch .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "userSeed": "node  --env-file .env.dev seed/userSeed.js "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.21.0",
     "morgan": "^1.10.0",
     "mysql2": "^3.11.3",
-    "node": "^22.9.0",
     "sequelize": "^6.37.4"
   }
 }

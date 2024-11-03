@@ -1,6 +1,10 @@
 import express from "express";
+import 'dotenv/config';
 import routes from "./routes/routes.js";
 import connection from "./connection/connection.js";
+import { SERVER_PORT } from "./config/config.js";
+import roleSeed from "./seed/roleSeed.js";
+
 const app = express();
 
 app.use(express.json());
@@ -15,8 +19,11 @@ app.use((req, res, next) => {
   });
 });
 
-await connection.sync({force:false})
 
-app.listen(8000, () => {
-  console.log(`🚀 ~ app.listen ~ localhost:8000`);
+await connection.sync({ force: true });
+
+await roleSeed()
+
+app.listen(SERVER_PORT, () => {
+  console.log(`🚀 ~ app.listen ~ localhost:${SERVER_PORT}`);
 });
