@@ -12,9 +12,17 @@ class UserService {
       throw error;
     }
   };
-  getUserByIdService = (id) => {
-    return "get user by id service";
+
+   getUserByIdService = async (id) => {
+    try {
+      const user = await User.findByPk(id, { include: Role });
+      if (!user) throw new Error("Usuario no encontrado");
+      return user;
+    } catch (error) {
+      throw error;
+    }
   };
+
   createUserService = async (userData) => {
     try {
       const data = await User.create(userData);
@@ -23,12 +31,29 @@ class UserService {
       throw error;
     }
   };
-  updateUserService = (id) => {
-    return "update user service";
+  
+  updateUserService = async (id, userData) => {
+    try {
+      const user = await User.findByPk(id);
+      if (!user) throw new Error("Usuario no encontrado");
+      await user.update(userData);
+      return user;
+    } catch (error) {
+      throw error;
+    }
   };
-  deleteUserService = (id) => {
-    return "delete user service";
+
+  deleteUserService = async (id) => {
+    try {
+      const user = await User.findByPk(id);
+      if (!user) throw new Error("Usuario no encontrado");
+      await user.destroy();
+      return { message: "Usuario eliminado correctamente" };
+    } catch (error) {
+      throw error;
+    }
   };
+
   loginUserService = async (user) => {
     try {
       const { pass, mail } = user;

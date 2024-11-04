@@ -15,7 +15,7 @@ Role.init(
           msg: "El rol debe ser 'user' o 'admin'",
         },
         notEmpty: {
-          msg: "El rol no puede estar vacío",
+          msg: "El rol no puede estar vacío", 
         },
       },
     },
