@@ -14,10 +14,17 @@ class UserControllers {
       });
     }
   };
-  getUserById = (req, res) => {
-    const user = this.userService.getUserByIdService();
-    res.status(200).send(user);
-  };
+  getUserById = async (req, res) => {
+    try {
+        const user = await this.userService.getUserByIdService(req.params.id);
+        res.status(200).send({ success: true, user });
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            message: error.message,
+        });
+    }
+};
   createUser = async (req, res) => {
     try {
       const { name, pass, mail, RoleId } = req.body;

@@ -15,8 +15,8 @@ class UserService {
 
    getUserByIdService = async (id) => {
     try {
-      const user = await User.findByPk(id, { include: Role });
-      if (!user) throw new Error("Usuario no encontrado");
+      const user = await User.findByPk(id);
+      if(!user) throw new Error("Usuario no encontrado");
       return user;
     } catch (error) {
       throw error;
