@@ -1,23 +1,28 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../connection/connection.js";
 import User from "./User.js"; // se importa el modelo User para la relación
+import Pelicula from "./Pelicula.js"; // se importa el modelo Pelicula para relacionarlo
 
 class Resena extends Model {}
 
 Resena.init(
   {
     movieId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: {
-          msg: "El ID de la película debe ser un número entero",
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: Pelicula,
+          key: 'id',
         },
-        notEmpty: {
-          msg: "El ID de la película no puede estar vacío",
+        validate: {
+          isInt: {
+            msg: "El ID de la película debe ser un número entero",
+          },
+          notEmpty: {
+            msg: "El ID de la película no puede estar vacío",
+          },
         },
       },
-    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -67,5 +72,9 @@ Resena.init(
 // Relación entre User y Resena
 User.hasMany(Resena, { foreignKey: "userId" });
 Resena.belongsTo(User, { foreignKey: "userId" });
+
+// Relación entre Pelicula y Resena
+Pelicula.hasMany(Resena, { foreignKey: "movieId" });
+Resena.belongsTo(Pelicula, { foreignKey: "movieId" });
 
 export default Resena;
