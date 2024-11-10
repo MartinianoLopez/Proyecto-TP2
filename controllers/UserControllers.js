@@ -57,7 +57,8 @@ class UserControllers {
         pass,
         mail,
       });
-      res.status(200).send({ success: true, message: user });
+      res.cookie("token",user)
+      res.status(200).send({ success: true, message: "Usuario loguado con exito" });
     } catch (error) {
       res.status(400).send({
         success: false,
@@ -65,6 +66,22 @@ class UserControllers {
       });
     }
   };
+
+  getMe = async (req, res) => {
+    try {
+      const { token } = req.cookies;
+      const user = await this.userService.me(token);
+      res.status(200).send({ success: true, message: user});
+    } catch (error) {
+      res.status(400).send({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
+
+
 }
 
 export default UserControllers;

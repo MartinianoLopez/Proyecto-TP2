@@ -1,5 +1,5 @@
 import { Router } from "express";
-import userRoutes from "./userRoutes.js";
+import userRoutes from "./UserRoutes.js";
 import resenasRoutes from "./resenasRoutes.js";
 import peliculasRoutes from "./peliculasRoutes.js";
 
@@ -11,4 +11,4 @@ routes.use("/peliculas", peliculasRoutes);
 // routes.use("/roles",rolesRoutes);
 
 
-export default routes;gi
+export default routes;
