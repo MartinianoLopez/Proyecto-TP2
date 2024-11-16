@@ -19,9 +19,15 @@ async function reseñaSeed() {
         });
 
         await Resenas.bulkCreate(reseñas);
-        console.log("Reseñas generadas exitosamente.");
+        console.log("-Reseñas generadas exitosamente.");
+        console.table(reseñas.map(({ movieId, userId, calificacion }) => ({
+            Película: movieId,
+            Usuario: userId,
+            Calificación: calificacion,
+          })));
+        
     } catch (error) {
-        console.error("Error copiando reseñas:", error);
+        console.error("-Error copiando reseñas:", error);
     }
 }
 
