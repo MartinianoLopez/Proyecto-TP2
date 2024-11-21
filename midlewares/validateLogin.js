@@ -10,7 +10,7 @@ export const validateLogin = async (req, res, next) => {
     const verify = verifyToken(token); 
   
     req.user = verify.data; 
-    console.log("Autenticación exitosa");
+    console.log("Usuario autenticado:", req.user);
     next(); 
   } catch (error) {
     console.error("Error en validateLogin:", error.message);

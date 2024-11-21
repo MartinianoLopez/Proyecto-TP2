@@ -65,7 +65,7 @@ class UserService {
       const isValidPass = await bcrypt.compare(pass, user.pass);
       if (!isValidPass) throw new Error("Invalid credentials");
   
-      return genToken({ id: user.id, mail: user.mail });
+      return genToken({ id: user.id, mail: user.mail, RoleId: user.RoleId });
     } catch (error) {
       console.error("Error en loginUserService:", error.message);
       throw new Error("Authentication failed");
