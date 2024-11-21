@@ -1,6 +1,7 @@
 import { User, Role } from "../models/index.js";
 import { genToken, verifyToken } from "../utils/token.js";
-
+import bcrypt from "bcrypt";
+import { JWT_SECRET } from "../config/config.js";
 
 class UserService {
   getAllUsersService = async () => {
@@ -56,25 +57,18 @@ class UserService {
     }
   };
 
-  loginUserService = async (user) => {
+  loginUserService = async ({ pass, mail }) => {
     try {
-      const { pass, mail } = user;
-      const data = await User.findOne({ where: { mail } });
-      if (!data) throw new Error("User not found");
-
-      const comparePass = await data.compare(pass);
-      if (!comparePass) throw new Error("User not found");
-
-      const payload = {
-        id: data.id,
-        mail: data.mail,
-      };
-
-      const token = genToken(payload);
-
-      return token;
+      const user = await User.findOne({ where: { mail } });
+      if (!user || !user.pass) throw new Error("Invalid credentials");
+  
+      const isValidPass = await bcrypt.compare(pass, user.pass);
+      if (!isValidPass) throw new Error("Invalid credentials");
+  
+      return genToken({ id: user.id, mail: user.mail });
     } catch (error) {
-      throw error;
+      console.error("Error en loginUserService:", error.message);
+      throw new Error("Authentication failed");
     }
   };
 
