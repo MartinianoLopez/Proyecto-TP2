@@ -8,14 +8,14 @@ import userSeed from "./seed/userSeed.js";
 import peliculasSeed from "./seed/peliculasSeed.js";
 import resenasSeed from "./seed/resenasSeed.js";
 import "./models/index.js";
-
+import cookieParser from "cookie-parser";
 
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 app.use("/app", routes);
 
 app.use((req, res, next) => {
