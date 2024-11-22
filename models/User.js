@@ -11,7 +11,7 @@ class User extends Model {
 
 User.init(
   {
-    name: {
+   name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -21,6 +21,10 @@ User.init(
         },
         notEmpty: {
           msg: "El nombre no puede estar vacío",
+        },
+        isAlpha: {
+          args: true,
+          msg: "El nombre solo puede contener letras",
         },
       },
     },
